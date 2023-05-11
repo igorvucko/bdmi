@@ -42,7 +42,10 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-  },
+   
+      },
+
+  
   /*
   ** Build configuration
   */
