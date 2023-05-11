@@ -47,9 +47,19 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'https://api.themoviedb.org/3/movie',
+    baseURL: process.env.API_BASE_URL,
   },
-  
+  publicRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_BASE_URL
+    }
+    
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.API_BASE_URL
+    }
+  },
 
   
   /*
