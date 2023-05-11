@@ -32,7 +32,7 @@
         })
   
         // Perform the request using the async Axios instance
-        const api_key = process.env.API_KEY
+        
         const response = await asyncAxiosInstance.get('/popular', {
           params: {
             api_key: API_KEY
