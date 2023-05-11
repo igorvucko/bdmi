@@ -8,8 +8,8 @@
   </template>
   
   <script>
-  import axios from 'axios'
-  import MovieCard from '~/components/MovieCard.vue'
+  import axios from 'axios';
+  import MovieCard from '~/components/MovieCard.vue';
   
   export default {
     components: {
@@ -18,32 +18,21 @@
     data() {
       return {
         movies: []
-      }
+      };
     },
     async created() {
       try {
-        const API_KEY = 'f87dcc0ea92543af9d9da29501a28c02'
-  
-        // Create the async Axios instance
-        const asyncAxiosInstance = axios.create({
-          baseURL: 'https://api.themoviedb.org/3/movie',
-          // Add specific Axios options for this instance
-          // e.g., headers, baseURL, etc.
-        })
-  
-        // Perform the request using the async Axios instance
-        
-        const response = await asyncAxiosInstance.get('/popular', {
+        const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
           params: {
-            api_key: API_KEY
+            api_key: process.env.API_KEY
           }
-        })
+        });
   
-        this.movies = response.data.results
+        this.movies = response.data.results;
       } catch (error) {
-        console.error('Error fetching movies:', error)
+        console.error('Error fetching movies:', error);
       }
     }
-  }
+  };
   </script>
   

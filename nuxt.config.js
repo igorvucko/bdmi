@@ -1,6 +1,10 @@
 
 export default {
   
+  env: {
+    API_KEY: 'f87dcc0ea92543af9d9da29501a28c02'
+  }, 
+
   mode: 'universal',
   /*
   ** Headers of the page
@@ -43,8 +47,9 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-   
-      },
+    baseURL: 'https://api.themoviedb.org/3/movie',
+  },
+  
 
   
   /*

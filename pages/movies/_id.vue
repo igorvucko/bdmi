@@ -10,9 +10,11 @@ export default {
   async asyncData({ params, $axios }) {
     try {
       const movieId = params.id;
-      const api_key = "f87dcc0ea92543af9d9da29501a28c02"; // Replace with your API key
+      //neces za svaki stavljat nego odredis params i to je najbolje
+      const response = await $axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, { params: {
+        api_key: process.env.API_KEY
+      }});
 
-      const response = await $axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}`);
       const movie = response.data;
 
       return { movie };
