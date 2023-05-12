@@ -6,14 +6,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   async asyncData({ params, $axios }) {
     try {
       const movieId = params.id;
-      //neces za svaki stavljat nego odredis params i to je najbolje
-      const response = await $axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, { params: {
-        api_key: process.env.API_KEY
-      }});
+      const response = await $axios.get(`https://api.themoviedb.org/3/movie/${movieId}`, {
+        params: {
+          api_key: process.env.API_KEY
+        }
+      });
 
       const movie = response.data;
 

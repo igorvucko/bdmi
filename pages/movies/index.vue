@@ -1,7 +1,12 @@
 <template>
   <div>
     <h1>Movies</h1>
-    <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+    <div v-if="isLoading" class="loading-indicator">
+      Loading...
+    </div>
+    <div v-else>
+      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+    </div>
   </div>
 </template>
 
@@ -15,7 +20,8 @@ export default {
   },
   data() {
     return {
-      movies: []
+      movies: [],
+      isLoading: true
     };
   },
   async created() {
@@ -27,6 +33,7 @@ export default {
       });
 
       this.movies = response.data.results;
+      this.isLoading = false; // Set isLoading to false to hide the loading indicator
     } catch (error) {
       console.error('Error fetching movies:', error);
     }

@@ -4,9 +4,9 @@
       <h2 class="text-xl font-bold">{{ movie.title }}</h2>
       <p class="text-gray-500">{{ movie.description }}</p>
     </div>
-    <nuxt-link :to="`/movies/${movie.id}`" class="ml-4 px-4 py-2 rounded bg-green-500 text-white">Details</nuxt-link>
+    <nuxt-link :to="`/movies/${movie.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</nuxt-link>
     <button @click="toggleWishlist" class="ml-4 px-4 py-2 rounded"
-      :class="{ 'bg-red-500 text-white': isOnWishlist, 'bg-blue-500 text-white': !isOnWishlist }">
+      :class="{ 'bg-red-500': isOnWishlist, 'bg-blue-500': !isOnWishlist }" :disabled="isLoading">
       {{ isOnWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
     </button>
   </div>
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      isOnWishlist: false
+      isOnWishlist: false,
+      isLoading: false
     };
   },
   created() {
@@ -30,6 +31,11 @@ export default {
   },
   methods: {
     toggleWishlist() {
+      if (this.isLoading) {
+        return; // Prevent multiple clicks while loading
+      }
+      this.isLoading = true;
+
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
       const index = wishlist.findIndex((item) => item.id === this.movie.id);
 
@@ -40,7 +46,11 @@ export default {
       }
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
-      this.isOnWishlist = this.checkWishlist();
+
+      setTimeout(() => {
+        this.isLoading = false;
+        this.isOnWishlist = this.checkWishlist();
+      }, 1000); // Simulate loading delay
     },
     checkWishlist() {
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
