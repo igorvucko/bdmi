@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <button @click="toggleSidebar" class="bg-blue-500 text-white p-2">
+  <header class="bg-blue-500 text-white py-4 px-6 flex justify-between items-center">
+    <button @click="toggleSidebar" class="text-xl">
       {{ isOpen ? 'Close' : 'Open' }} Sidebar
     </button>
-    <span class="ml-2">{{ wishlistCount }} movies on wishlist</span>
-
-    <!-- Include the PaginationButtons component -->
-    <PaginationButtons />
-  </div>
+    <div class="flex items-center">
+      <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
+      <PaginationButtons />
+    </div>
+  </header>
 </template>
 
 <script>
