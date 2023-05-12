@@ -69,6 +69,7 @@ export default {
     postcss: {
       plugins: {
         tailwindcss: './tailwind.config.js'
+        
       }
     },
     /*

@@ -13,6 +13,11 @@
       toggleSidebar() {
         this.$emit('toggleSidebar')
       }
+    },
+      computed: {
+      wishlistCount() {
+        return this.$store.getters['wishlist/wishlistCount'];
+      }
     }
   }
   </script>

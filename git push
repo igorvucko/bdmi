@@ -1,0 +1,35 @@
+[33mcommit 0d911964320759dd78d46d08d9ce7113c81b1cf0[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 15:18:26 2023 +0200
+
+    sve radi, treba local spojit, tailwind napravljen
+
+[33mcommit 4f113a1c2a27d68f749cf2d0da3110484beb9086[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 15:12:14 2023 +0200
+
+    radi wishlist,radi details
+
+[33mcommit 79fd6791ef29ec2606e2664106275b3482475fcc[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 13:04:45 2023 +0200
+
+    details rade, axios radi sa baseurl
+
+[33mcommit 8c60a3c338197534a0eda178783013be9650c4d4[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 12:22:37 2023 +0200
+
+    details radi,head radi ali treba axios bolje
+
+[33mcommit 54621ee643b4f49cef0fa00b2bf896cae2aa556e[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 10:05:07 2023 +0200
+
+    api radi
+
+[33mcommit 91ae8cccf8d3987583770027105c71c84e07fe6e[m
+Author: igorvucko <igorhefner@gmail.com>
+Date:   Thu May 11 08:52:28 2023 +0200
+
+    Sidebar radi
