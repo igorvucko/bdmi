@@ -4,16 +4,24 @@
       {{ isOpen ? 'Close' : 'Open' }} Sidebar
     </button>
     <span class="ml-2">{{ wishlistCount }} movies on wishlist</span>
+
+    <!-- Include the PaginationButtons component -->
+    <PaginationButtons />
   </div>
 </template>
 
 <script>
+import PaginationButtons from '~/components/PaginationButtons.vue';
+
 export default {
   props: {
     isOpen: {
       type: Boolean,
       required: true
     }
+  },
+  components: {
+    PaginationButtons
   },
   computed: {
     wishlistCount() {

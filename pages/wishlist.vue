@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Wishlist</h1>
-    <MovieCard v-for="movie in wishlist" :key="movie.id" :movie="movie" />
+    <MovieCard v-for="movie in wishlist" :key="movie.id" :movie="movie" @removeFromWishlist="removeFromWishlist" />
   </div>
 </template>
 
@@ -17,8 +17,15 @@ export default {
       if (process.client) {
         const wishlist = localStorage.getItem('wishlist');
         return wishlist ? JSON.parse(wishlist) : [];
-      } else {
-        return [];
+      }
+      return [];
+    }
+  },
+  methods: {
+    removeFromWishlist(movie) {
+      if (process.client) {
+        const wishlist = this.wishlist.filter(item => item.id !== movie.id);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
       }
     }
   }
