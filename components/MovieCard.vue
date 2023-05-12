@@ -21,11 +21,22 @@ export default {
   },
   methods: {
     toggleWishlist() {
-      // Implement your logic for adding/removing movie from wishlist
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      const index = wishlist.findIndex((item) => item.id === this.movie.id);
+
+      if (index !== -1) {
+        // Movie is already in the wishlist, so remove it
+        wishlist.splice(index, 1);
+      } else {
+        // Movie is not in the wishlist, so add it
+        wishlist.push(this.movie);
+      }
+
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
     },
     isOnWishlist(movie) {
-      // Implement your logic to check if the movie is in the wishlist
-      return false; // Placeholder return value
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      return wishlist.some((item) => item.id === movie.id);
     }
   }
 };
