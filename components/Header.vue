@@ -5,13 +5,13 @@
     </button>
     <div class="flex items-center">
       <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
-      <PaginationButtons />
+      
     </div>
   </header>
 </template>
 
 <script>
-import PaginationButtons from '~/components/PaginationButtons.vue';
+
 
 export default {
   props: {
@@ -21,7 +21,7 @@ export default {
     }
   },
   components: {
-    PaginationButtons
+    
   },
   computed: {
     wishlistCount() {
