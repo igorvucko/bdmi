@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center mb-4">
     <div>
-      <h2 class="text-xl font-bold">{{ movie.title }}</h2>
-      <p class="text-gray-500">{{ movie.description }}</p>
+      <h2 class="text-xl font-bold">{{ movieData.title }}</h2>
+      <p class="text-gray-500">{{ movieData.description }}</p>
     </div>
-    <nuxt-link :to="`/movies/${movie.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</nuxt-link>
+    <nuxt-link :to="`/movies/${movieData.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</nuxt-link>
     <button @click="toggleWishlist" class="ml-4 px-4 py-2 rounded"
       :class="{ 'bg-red-500': isOnWishlist, 'bg-blue-500': !isOnWishlist }" :disabled="isLoading">
       {{ isOnWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
@@ -15,7 +15,7 @@
 <script>
 export default {
   props: {
-    movie: {
+    movieData: {
       type: Object,
       required: true
     }
@@ -37,12 +37,12 @@ export default {
       this.isLoading = true;
 
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      const index = wishlist.findIndex((item) => item.id === this.movie.id);
+      const index = wishlist.findIndex((item) => item.id === this.movieData.id);
 
       if (index !== -1) {
         wishlist.splice(index, 1);
       } else {
-        wishlist.push(this.movie);
+        wishlist.push(this.movieData);
       }
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -54,7 +54,7 @@ export default {
     },
     checkWishlist() {
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-      return wishlist.some((item) => item.id === this.movie.id);
+      return wishlist.some((item) => item.id === this.movieData.id);
     }
   }
 };

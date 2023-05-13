@@ -5,23 +5,28 @@
       Loading...
     </div>
     <div v-else>
-      <MovieCard v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <MovieCard v-for="movie in displayedMovies" :key="movie.id" :movieData="movie" />
     </div>
+    <base-pagination :page-count="totalPages" v-model="defaultPagination" @change="changePage" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import MovieCard from '~/components/MovieCard.vue';
+import BasePagination from '~/components/BasePagination.vue';
 
 export default {
   components: {
-    MovieCard
+    MovieCard,
+    BasePagination
   },
   data() {
     return {
-      movies: [],
-      isLoading: true
+      movies: [], // All movies fetched from the API
+      isLoading: true,
+      defaultPagination: 1,
+      moviesPerPage: 4
     };
   },
   async created() {
@@ -36,6 +41,21 @@ export default {
       this.isLoading = false; // Set isLoading to false to hide the loading indicator
     } catch (error) {
       console.error('Error fetching movies:', error);
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.movies.length / this.moviesPerPage);
+    },
+    displayedMovies() {
+      const start = (this.defaultPagination - 1) * this.moviesPerPage;
+      const end = start + this.moviesPerPage;
+      return this.movies.slice(start, end);
+    }
+  },
+  methods: {
+    changePage(pageNumber) {
+      this.defaultPagination = pageNumber;
     }
   }
 };
