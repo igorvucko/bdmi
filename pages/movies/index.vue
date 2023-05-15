@@ -7,7 +7,7 @@
     <div v-else>
       <MovieCard v-for="movie in displayedMovies" :key="movie.id" :movieData="movie" />
     </div>
-    <base-pagination :page-count="totalPages" v-model="defaultPagination" @change="changePage" />
+    <BasePagination :pageCount="totalPages" v-model="defaultPagination" @change="changePage" />
   </div>
 </template>
 
@@ -17,24 +17,25 @@ import MovieCard from '~/components/MovieCard.vue';
 import BasePagination from '~/components/BasePagination.vue';
 
 export default {
+  auth: false,
   components: {
     MovieCard,
-    BasePagination
+    BasePagination,
   },
   data() {
     return {
       movies: [], // All movies fetched from the API
       isLoading: true,
       defaultPagination: 1,
-      moviesPerPage: 4
+      moviesPerPage: 4,
     };
   },
   async created() {
     try {
       const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
         params: {
-          api_key: process.env.API_KEY
-        }
+          api_key: process.env.API_KEY,
+        },
       });
 
       this.movies = response.data.results;
@@ -51,12 +52,12 @@ export default {
       const start = (this.defaultPagination - 1) * this.moviesPerPage;
       const end = start + this.moviesPerPage;
       return this.movies.slice(start, end);
-    }
+    },
   },
   methods: {
     changePage(pageNumber) {
       this.defaultPagination = pageNumber;
-    }
-  }
+    },
+  },
 };
 </script>

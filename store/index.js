@@ -1,5 +1,20 @@
 import Vuex from 'vuex';
 
+export const actions = {
+    nuxtServerInit({ commit }, { app }) {
+        const username = app.$cookies.get('username');
+        if (username) {
+            commit('SET_USERNAME', username);
+        }
+    }
+};
+
+export const mutations = {
+    SET_USERNAME(state, username) {
+        state.username = username;
+    }
+};
+
 const createStore = () => {
     return new Vuex.Store({
         state: {

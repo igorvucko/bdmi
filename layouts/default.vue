@@ -2,19 +2,27 @@
   <div>
     <div v-if="isLoading" class="loading-container">
       <div class="loading-indicator">
-        PRIČEKAJ SINE MOJ...
+        LOADING...
       </div>
     </div>
 
     <Header :isOpen="sidebarOpen" @toggleSidebar="toggleSidebar" />
     <div class="flex">
-      <Sidebar v-model="sidebarOpen" />
+      <Sidebar :value="sidebarOpen" @input="sidebarOpen = $event" />
       <div class="flex-grow">
-        <nuxt />
+        <div class="main-content">
+          <nuxt />
+        </div>
       </div>
     </div>
   </div>
 </template>
+<script>
+export default {
+  middleware: 'checkAuth'
+};
+</script>
+
 
 <style scoped>
 .loading-container {
@@ -36,6 +44,11 @@
   background-color: white;
   padding: 20px;
 }
+
+.main-content {
+  padding-top: 20px;
+  /* Adjust the value to match your header height */
+}
 </style>
 
 <script>
@@ -43,6 +56,7 @@ import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
 
 export default {
+  auth: false,
   components: {
     Header,
     Sidebar
@@ -57,7 +71,7 @@ export default {
     // Simulate loading delay
     setTimeout(() => {
       this.isLoading = false; // Set isLoading to false to hide the loading indicator
-    }, 2000);
+    }, 1000);
   },
   methods: {
     toggleSidebar() {

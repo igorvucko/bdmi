@@ -12,7 +12,8 @@ export default {
   props: {
     pageCount: {
       type: Number,
-      required: true
+      required: true,
+      auth: false
     },
     value: {
       type: Number,

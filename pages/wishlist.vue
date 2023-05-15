@@ -10,6 +10,7 @@
 import MovieCard from '~/components/MovieCard.vue';
 
 export default {
+  auth: false,
   components: {
     MovieCard
   },

@@ -4,7 +4,8 @@
       <h2 class="text-xl font-bold">{{ movieData.title }}</h2>
       <p class="text-gray-500">{{ movieData.description }}</p>
     </div>
-    <nuxt-link :to="`/movies/${movieData.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</nuxt-link>
+    <router-link :to="`/movies/${movieData.id}`"
+      class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</router-link>
     <button @click="toggleWishlist" class="ml-4 px-4 py-2 rounded"
       :class="{ 'bg-red-500': isOnWishlist, 'bg-blue-500': !isOnWishlist }" :disabled="isLoading">
       {{ isOnWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
@@ -17,13 +18,13 @@ export default {
   props: {
     movieData: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       isOnWishlist: false,
-      isLoading: false
+      isLoading: false,
     };
   },
   created() {
@@ -55,7 +56,7 @@ export default {
     checkWishlist() {
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
       return wishlist.some((item) => item.id === this.movieData.id);
-    }
-  }
+    },
+  },
 };
 </script>
