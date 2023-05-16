@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Movies</h1>
+    <h1 class="text-4xl font-bold text-center pb-4">Movies</h1>
     <div v-if="isLoading" class="loading-indicator">
       Loading...
     </div>
@@ -27,7 +27,7 @@ export default {
       movies: [], // All movies fetched from the API
       isLoading: true,
       defaultPagination: 1,
-      moviesPerPage: 4,
+      moviesPerPage: 6,
     };
   },
   async created() {

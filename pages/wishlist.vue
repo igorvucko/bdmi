@@ -29,14 +29,7 @@ export default {
         this.wishlist = wishlist ? JSON.parse(wishlist) : [];
       }
     },
-    // removeFromWishlist(movie) {
-    //   // if (process.client) {
-    //   //   this.wishlist = this.wishlist.filter(item => item.id !== movie.id);
-    //   //   console.log(this.wishlist)
-    //   //   localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
-    //   // }
-    //   this.loadWishlist()
-    // }
+  
   }
 };
 </script>
