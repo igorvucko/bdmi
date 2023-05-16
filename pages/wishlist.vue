@@ -2,7 +2,7 @@
   <div>
     <h1>Wishlist</h1>
     <div v-if="wishlist.length === 0">No movies in the wishlist</div>
-    <MovieCard v-for="movie in wishlist" :key="movie.id" :movieData="movie" @removeFromWishlist="removeFromWishlist" />
+    <MovieCard v-for="movie in wishlist" :key="movie.id" :movieData="movie" @removedFromWishlist="loadWishlist" />
   </div>
 </template>
 
@@ -29,12 +29,14 @@ export default {
         this.wishlist = wishlist ? JSON.parse(wishlist) : [];
       }
     },
-    removeFromWishlist(movie) {
-      if (process.client) {
-        this.wishlist = this.wishlist.filter(item => item.id !== movie.id);
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
-      }
-    }
+    // removeFromWishlist(movie) {
+    //   // if (process.client) {
+    //   //   this.wishlist = this.wishlist.filter(item => item.id !== movie.id);
+    //   //   console.log(this.wishlist)
+    //   //   localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+    //   // }
+    //   this.loadWishlist()
+    // }
   }
 };
 </script>
