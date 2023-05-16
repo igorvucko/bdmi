@@ -23,7 +23,7 @@ import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
 
 export default {
-  auth: false,
+  middleware: 'auth',
   components: {
     Header,
     Sidebar

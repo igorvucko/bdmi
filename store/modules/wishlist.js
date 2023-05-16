@@ -1,34 +1,58 @@
 export default {
   namespaced: true,
-  state: {
+  state: () => ({
     wishlist: [],
-  },
-  getters: {
-    wishlistCount(state) {
-      return state.wishlist.length;
-    },
-  },
+    wishlistCount: 0
+  }),
+
   mutations: {
-    addToWishlist(state, movie) {
-      if (!state.wishlist.includes(movie)) {
-        state.wishlist.push(movie);
+    addItem(state, item) {
+      if (!state.wishlist.some((i) => i.id === item.id)) {
+        state.wishlist.push(item)
+        if (process.browser) {
+          localStorage.setItem('wishlist', JSON.stringify(state.wishlist))
+          localStorage.setItem('wishlistCount', state.wishlist.length)
+        }
+        state.wishlistCount = state.wishlist.length
       }
     },
-    removeFromWishlist(state, movie) {
-      const index = state.wishlist.indexOf(movie);
-      if (index !== -1) {
-        state.wishlist.splice(index, 1);
+
+    removeItem(state, item) {
+      state.wishlist = state.wishlist.filter((i) => i.id !== item.id)
+      if (process.browser) {
+        localStorage.setItem('wishlist', JSON.stringify(state.wishlist))
+        localStorage.setItem('wishlistCount', state.wishlist.length)
       }
+      state.wishlistCount = state.wishlist.length
     },
+
+    setWishlist(state, wishlist) {
+      state.wishlist = wishlist
+    },
+
+    setWishlistCount(state, count) {
+      state.wishlistCount = count
+    }
   },
+
+  getters: {
+    isInWishlist: (state) => (movie) => {
+      return state.wishlist.includes(movie)
+    },
+    wishlistCount: (state) => {
+      return state.wishlistCount
+    }
+  },
+
   actions: {
-    addToWishlist({ commit }, movie) {
-      commit('addToWishlist', movie);
-      // You can also save the updated wishlist to localStorage here
-    },
-    removeFromWishlist({ commit }, movie) {
-      commit('removeFromWishlist', movie);
-      // You can also save the updated wishlist to localStorage here
-    },
-  },
-};
+    init({ commit }) {
+      if (process.browser) {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || []
+        const wishlistCount =
+          JSON.parse(localStorage.getItem('wishlistCount')) || 0
+        commit('setWishlist', wishlist)
+        commit('setWishlistCount', wishlistCount)
+      }
+    }
+  }
+}

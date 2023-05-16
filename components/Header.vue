@@ -4,17 +4,17 @@
       <button @click="toggleSidebar" class="text-xl mr-4">
         {{ isOpen ? 'Close' : 'Open' }}
       </button>
+      
 
       <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
+      
     </div>
-    <div v-if="username">
-      <span class="mr-4">{{ username }}</span>
+    <div v-if="$store.state.user">Hello, {{$store.state.user}}</div>
+    
+       
       <button class="text-white" @click="logout">Logout</button>
-    </div>
-    <div v-else>
-      <router-link class="text-white mr-4" to="/login">Login</router-link>
-      <router-link class="text-white mr-4" to="/register">Register</router-link>
-    </div>
+      
+    
   </header>
 </template>
 
@@ -50,7 +50,7 @@ export default {
       this.$cookies.remove('username');
 
       // Redirect the user to the login page
-      this.$router.push('/login');
+      this.$router.push('/index');
     },
   },
 };

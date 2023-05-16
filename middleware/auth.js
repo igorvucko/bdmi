@@ -1,13 +1,8 @@
-export default function ({ route, redirect }) {
-    // Check if the user is trying to access the register page
-    if (route.path === '/register') {
-        // Allow the user to access the register page
-        return;
-    }
+// middleware/auth.js
+export default function ({ store, redirect, app }) {
+  const username = app.$cookies.get('username')
 
-    // Check if the user is authenticated
-    if (!this.$cookies.get('username')) {
-        // If not, redirect them to the login page
-        return redirect('/login');
-    }
+  if (!username) {
+    return redirect('/')
+  }
 }
