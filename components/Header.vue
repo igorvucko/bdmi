@@ -7,8 +7,8 @@
 
       <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
     </div>
-    <div v-if="$auth.loggedIn">
-      <span class="mr-4">{{ $auth.user.email }}</span>
+    <div v-if="username">
+      <span class="mr-4">{{ username }}</span>
       <button class="text-white" @click="logout">Logout</button>
     </div>
     <div v-else>
@@ -36,15 +36,24 @@ export default {
         return 0;
       }
     },
+    username() {
+      // Get the value of the cookie that contains the username
+      return this.$cookies.get('username');
+    },
   },
   methods: {
     toggleSidebar() {
       this.$emit('toggleSidebar');
     },
     logout() {
-      this.$auth.logout();
+      // Remove the cookie that contains the username
+      this.$cookies.remove('username');
+
+      // Redirect the user to the login page
       this.$router.push('/login');
     },
   },
 };
 </script>
+
+

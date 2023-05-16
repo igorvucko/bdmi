@@ -1,30 +1,34 @@
 <template>
-    <div class="container mx-auto py-8">
-        <h1 class="text-2xl font-bold mb-4">Login</h1>
-        <form @submit.prevent="login">
-            <div class="mb-4">
-                <label class="block text-gray-700 font-bold mb-2" for="email">Email</label>
-                <input v-model="email" id="email" type="email"
-                    class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required>
+    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Login</h2>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 font-bold mb-2" for="password">Password</label>
-                <input v-model="password" id="password" type="password"
-                    class="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required>
-            </div>
-            <div class="flex items-center justify-between">
-                <button type="submit"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    Login
-                </button>
-                <router-link to="/register"
-                    class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                    Create an account
-                </router-link>
-            </div>
-        </form>
+            <form class="mt-8 space-y-6" @submit.prevent="login">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="username" class="sr-only">Username</label>
+                        <input id="username" v-model="username" name="username" type="text" autocomplete="username" required
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            placeholder="Username" />
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
+                        <input id="password" v-model="password" name="password" type="password"
+                            autocomplete="current-password" required
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            placeholder="Password" />
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -32,29 +36,22 @@
 export default {
     data() {
         return {
-            email: '',
+            username: '',
             password: '',
         };
     },
     methods: {
-        async login() {
-            try {
-                // Call your login API endpoint with email and password
-                // For demonstration purposes, we'll simulate a successful login
-                const response = await this.$auth.loginWith('cookie', {
-                    data: {
-                        email: this.email,
-                        password: this.password,
-                    },
-                });
+        login() {
+            // Check if the entered username and password are valid
+            if (this.username === 'JohnDoe' && this.password === 'password') {
+                // Set a cookie with the user's username
+                this.$cookies.set('username', this.username);
 
-                // Handle successful login
-                console.log('Logged in successfully', response);
-                // Redirect the user to a protected route
-                this.$router.push('/dashboard');
-            } catch (error) {
-                // Handle login error
-                console.error('Login error', error);
+                // Redirect the user to the protected page
+                this.$router.push('/movies');
+            } else {
+                // Show an error message
+                alert('Invalid username or password');
             }
         },
     },

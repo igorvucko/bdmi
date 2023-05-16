@@ -52,7 +52,7 @@ export default {
         this.isLoading = false;
         this.isOnWishlist = this.checkWishlist();
       }, 1000); // Simulate loading delay
-      this.$emit("removedFromWishlist")
+      this.$emit("removedFromWishlist");
     },
     checkWishlist() {
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];

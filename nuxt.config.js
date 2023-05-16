@@ -34,6 +34,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+     
+
   ],
   /*
   ** Nuxt.js modules
@@ -41,6 +43,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
+    'cookie-universal-nuxt'
     
   ],
   router: {

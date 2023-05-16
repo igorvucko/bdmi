@@ -17,39 +17,6 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  middleware: 'checkAuth'
-};
-</script>
-
-
-<style scoped>
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-}
-
-.loading-indicator {
-  font-size: 32px;
-  font-weight: bold;
-  background-color: white;
-  padding: 20px;
-}
-
-.main-content {
-  padding-top: 20px;
-  /* Adjust the value to match your header height */
-}
-</style>
 
 <script>
 import Header from '~/components/Header.vue'
@@ -80,3 +47,32 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.loading-indicator {
+  font-size: 32px;
+  font-weight: bold;
+  background-color: white;
+  padding: 20px;
+}
+
+.main-content {
+  padding-top: 20px;
+  padding-left: 20px;
+  /* Add left padding here */
+  /* Adjust the value to match your header height */
+}
+</style>
