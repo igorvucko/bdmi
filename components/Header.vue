@@ -18,7 +18,7 @@
   </header>
 </template>
 
-<script>
+<script >
 export default {
   props: {
     isOpen: {
@@ -50,7 +50,7 @@ export default {
       this.$cookies.remove('username');
 
       // Redirect the user to the login page
-      this.$router.push('/index');
+      this.$router.push('/');
     },
   },
 };

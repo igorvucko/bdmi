@@ -9,7 +9,7 @@
 import axios from 'axios';
 
 export default {
-  auth: false,
+  
   async asyncData({ params, $axios }) {
     try {
       const movieId = params.id;

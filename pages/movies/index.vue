@@ -17,7 +17,7 @@ import MovieCard from '~/components/MovieCard.vue';
 import BasePagination from '~/components/BasePagination.vue';
 
 export default {
-  auth: false,
+  
   components: {
     MovieCard,
     BasePagination,
