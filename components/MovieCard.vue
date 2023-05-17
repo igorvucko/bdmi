@@ -33,7 +33,7 @@ export default {
   methods: {
     toggleWishlist() {
       if (this.isLoading) {
-        return; // Prevent multiple clicks while loading
+        return;
       }
       this.isLoading = true;
 
@@ -51,8 +51,8 @@ export default {
       setTimeout(() => {
         this.isLoading = false;
         this.isOnWishlist = this.checkWishlist();
-      }, 1000); // Simulate loading delay
-      this.$emit("removedFromWishlist");
+        this.$emit('removedFromWishlist');
+      }, 1000);
     },
     checkWishlist() {
       const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];

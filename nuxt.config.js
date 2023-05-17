@@ -1,9 +1,7 @@
-
 export default {
-  
   env: {
     API_KEY: 'f87dcc0ea92543af9d9da29501a28c02'
-  }, 
+  },
 
   mode: 'universal',
   /*
@@ -28,29 +26,26 @@ export default {
   ** Global CSS
   */
   css: [
-    '~/assets/css/tailwind.css'
+    '~/assets/css/tailwind.css',
+    // Add this line separately
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-     
-
+    
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
     '@nuxtjs/axios',
-    
     'cookie-universal-nuxt',
-    
+    // Add this line for Vuetify integration
   ],
-     router: {
+  router: {
     middleware: ['auth']
-  }, 
-  
- 
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -62,7 +57,6 @@ export default {
     axios: {
       baseURL: process.env.API_BASE_URL
     }
-    
   },
   privateRuntimeConfig: {
     axios: {
@@ -70,7 +64,6 @@ export default {
     }
   },
 
-  
   /*
   ** Build configuration
   */
@@ -78,7 +71,6 @@ export default {
     postcss: {
       plugins: {
         tailwindcss: './tailwind.config.js'
-        
       }
     },
     /*

@@ -14,21 +14,20 @@ const store = () => {
 
 export default store
 export const state = () => ({
-    user: null,
-  });
-  
-  export const mutations = {
-    setUser(state, username) {
-      state.user = username;
-    },
-  };
-  
-  export const actions = {
-    nuxtServerInit({ commit }, { app }) {
-      const username = app.$cookies.get('username');
-      if (username) {
-        commit('setUser', username);
-      }
-    },
-  };
-  
+  user: null,
+});
+
+export const mutations = {
+  setUser(state, username) {
+    state.user = username;
+  },
+};
+
+export const actions = {
+  nuxtServerInit({ commit }, { app }) {
+    const username = app.$cookies.get('username');
+    if (username) {
+      commit('setUser', username);
+    }
+  },
+};

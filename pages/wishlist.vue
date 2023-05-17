@@ -10,7 +10,6 @@
 import MovieCard from '~/components/MovieCard.vue';
 
 export default {
-  
   components: {
     MovieCard
   },
@@ -25,11 +24,10 @@ export default {
   methods: {
     loadWishlist() {
       if (process.client) {
-        const wishlist = localStorage.getItem('wishlist');
-        this.wishlist = wishlist ? JSON.parse(wishlist) : [];
+        const wishlist = JSON.parse(localStorage.getItem('wishlist'));
+        this.wishlist = wishlist ? wishlist : [];
       }
     },
-  
   }
 };
 </script>

@@ -4,21 +4,16 @@
       <button @click="toggleSidebar" class="text-xl mr-4">
         {{ isOpen ? 'Close' : 'Open' }}
       </button>
-      
-
       <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
-      
     </div>
-    <div v-if="$store.state.user">Hello, {{$store.state.user}}</div>
-    
-       
-      <button class="text-white" @click="logout">Logout</button>
-      
-    
+    <div v-if="user">Hello, {{ user }}</div>
+    <button class="text-white" @click="logout">Logout</button>
   </header>
 </template>
 
-<script >
+<script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     isOpen: {
@@ -27,33 +22,22 @@ export default {
     },
   },
   computed: {
-    wishlistCount() {
-      if (process.client) {
-        const wishlist = localStorage.getItem('wishlist');
-        const movies = wishlist ? JSON.parse(wishlist) : [];
-        return movies.length;
-      } else {
-        return 0;
-      }
-    },
-    username() {
-      // Get the value of the cookie that contains the username
-      return this.$cookies.get('username');
-    },
+    ...mapState('wishlist', ['wishlistCount']),
+    ...mapState(['user']),
   },
   methods: {
     toggleSidebar() {
       this.$emit('toggleSidebar');
     },
     logout() {
-      // Remove the cookie that contains the username
+      this.$store.commit('setUser', null);
       this.$cookies.remove('username');
-
-      // Redirect the user to the login page
       this.$router.push('/');
     },
   },
 };
 </script>
 
-
+<style>
+/* Your existing styles */
+</style>
