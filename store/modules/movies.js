@@ -29,6 +29,10 @@ export default {
         },
         setPagination({ commit }, page) {
             commit('setPagination', page);
-        }
+        },
+        login({ commit }, username) {
+            commit('setUser', username);
+            // Set the cookie here
+          }
     }
 };

@@ -74,19 +74,13 @@ export default {
       this.$store.dispatch('wishlist/removeFromWishlist', movie);
     },
     toggleWishlist(movie) {
-      if (this.isLoading) {
-        return;
-      }
-      this.isLoading = true;
-      if (this.isInWishlist(movie)) {
-        this.removeFromWishlist(movie);
-      } else {
-        this.addToWishlist(movie);
-      }
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 1000);
-    },
+  if (this.isInWishlist(movie)) {
+    this.removeFromWishlist(movie);
+  } else {
+    this.addToWishlist(movie);
+  }
+},
+
     changePage(pageNumber) {
       this.defaultPagination = pageNumber;
     },

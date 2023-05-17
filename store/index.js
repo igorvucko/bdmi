@@ -4,22 +4,17 @@ import wishlist from './modules/wishlist'
 
 Vue.use(Vuex)
 
-const store = () => {
-  return new Vuex.Store({
-    modules: {
-      wishlist
-    }
-  })
-}
-
-export default store
 export const state = () => ({
   user: null,
+  wishlistCount: 0,
 });
 
 export const mutations = {
   setUser(state, username) {
     state.user = username;
+  },
+  setWishlistCount(state, count) {
+    state.wishlistCount = count;
   },
 };
 
@@ -30,4 +25,25 @@ export const actions = {
       commit('setUser', username);
     }
   },
+  updateWishlistCount({ commit }) {
+    if (process.client) {
+      const wishlist = JSON.parse(localStorage.getItem('wishlist'));
+      if (wishlist) {
+        commit('setWishlistCount', wishlist.length);
+      }
+    }
+  },
 };
+
+const store = () => {
+  return new Vuex.Store({
+    modules: {
+      wishlist
+    },
+    state,
+    mutations,
+    actions,
+  })
+}
+
+export default store
