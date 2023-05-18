@@ -1,13 +1,19 @@
 <template>
   <header class="bg-blue-500 text-white py-4 px-6 flex justify-between items-center text-lg">
     <div class="flex items-center">
-      <button @click="toggleSidebar" class="text-xl mr-4">
+      <v-btn dark color="primary" @click="toggleSidebar" class="mr-4 pr-4">
         {{ isOpen ? 'Close' : 'Open' }}
-      </button>
+      </v-btn>
       <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
     </div>
-    <div v-if="user">Hello, {{ user }}</div>
-    <button class="text-white" @click="logout">Logout</button>
+    <div class="flex-grow flex justify-center">
+      <div v-if="displayUser">
+        Hello, {{ displayUser }}
+      </div>
+    </div>
+    <v-btn dark color="primary" @click="logout" class="pl-4">
+      Logout
+    </v-btn>
   </header>
 </template>
 
@@ -24,18 +30,23 @@ export default {
   computed: {
     ...mapState('wishlist', ['wishlistCount']),
     ...mapState(['user']),
+    displayUser() {
+      return this.user;
+    },
   },
   methods: {
     toggleSidebar() {
       this.$emit('toggleSidebar');
     },
     logout() {
-      this.$store.commit('setUser', null);
       this.$cookies.remove('username');
-      this.$router.push('/');
+      this.$store.dispatch('logout')
+        .then(() => 
+          this.$router.go({ path: 'login' }))
+        }
     },
-  },
-};
+  }
+
 </script>
 
 <style>

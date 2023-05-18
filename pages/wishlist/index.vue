@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import MovieCard from '~/components/MovieCard.vue';
 
 export default {
@@ -18,6 +19,9 @@ export default {
       wishlist: []
     };
   },
+  computed: {
+    ...mapState('wishlist',['wishlistCount']),
+  },
   mounted() {
     this.loadWishlist();
   },
@@ -26,6 +30,9 @@ export default {
       if (process.client) {
         const wishlist = JSON.parse(localStorage.getItem('wishlist'));
         this.wishlist = wishlist ? wishlist : [];
+              console.log("load wishlist");
+              console.log(this.wishlistCount)
+              
         this.$store.dispatch('updateWishlistCount');
       }
     },

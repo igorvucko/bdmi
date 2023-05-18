@@ -28,10 +28,15 @@ export const actions = {
   updateWishlistCount({ commit }) {
     if (process.client) {
       const wishlist = JSON.parse(localStorage.getItem('wishlist'));
+
       if (wishlist) {
         commit('setWishlistCount', wishlist.length);
       }
     }
+  },
+  logout({ commit }) {
+    commit('setUser', null);
+    // Additional code to clear cookies or perform other logout operations
   },
 };
 

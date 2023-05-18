@@ -6,20 +6,25 @@
     </div>
     <router-link :to="`/movies/${movieData.id}`"
       class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</router-link>
-    <button @click="toggleWishlist" class="ml-4 px-4 py-2 rounded"
-      :class="{ 'bg-red-500': isOnWishlist, 'bg-blue-500': !isOnWishlist }" :disabled="isLoading">
+    <v-btn dark color="primary" @click="toggleWishlist" class="ml-4" 
+      :disabled="isLoading">
       {{ isOnWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-    </button>
+    </v-btn>
   </div>
 </template>
 
 <script>
+import VButton from '@/components/VButton.vue';
+
 export default {
   props: {
     movieData: {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    VButton,
   },
   data() {
     return {

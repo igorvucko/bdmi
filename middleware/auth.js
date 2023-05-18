@@ -4,5 +4,8 @@ export default function ({ store, redirect, app }) {
 
   if (!username) {
     return redirect('/')
+    
   }
+  
+  
 }

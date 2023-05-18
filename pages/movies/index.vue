@@ -36,7 +36,7 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import CustomPagination from '@/components/CustomPagination.vue';
 
 export default {

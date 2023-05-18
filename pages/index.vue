@@ -36,6 +36,7 @@ export default {
     submitForm() {
       if (this.username && this.password) {
         this.$cookies.set('username', this.username);
+        this.$store.commit('setUser', this.username);
         this.$router.push('/movies');
       }
     }

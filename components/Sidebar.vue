@@ -2,8 +2,11 @@
   <transition name="sidebar-transition">
     <div v-show="value" class="sidebar bg-blue-200 w-64">
       <ul>
-        <li><nuxt-link to="/">Logout</nuxt-link></li>
-        <li><nuxt-link to="/wishlist">Wishlist</nuxt-link></li>
+       
+        <li>
+          <v-btn dark color="primary" to="/wishlist">Wishlist</v-btn>
+          <v-btn dark color="primary" to="/movies">Movies</v-btn>
+        </li>
         <!-- Add more links here -->
       </ul>
     </div>
@@ -13,7 +16,6 @@
 <script>
 export default {
   props: ['value'],
-  
 };
 </script>
 

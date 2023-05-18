@@ -1,4 +1,8 @@
 export default {
+  buildModules: [
+    // Simple usage
+    '@nuxtjs/vuetify',
+  ],
   env: {
     API_KEY: 'f87dcc0ea92543af9d9da29501a28c02'
   },
@@ -33,7 +37,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    
+  '@/plugins/vuetify',
+
   ],
   /*
   ** Nuxt.js modules

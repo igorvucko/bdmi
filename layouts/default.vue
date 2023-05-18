@@ -7,9 +7,9 @@
       </div>
     </div>
 
-    <Header :isOpen="sidebarOpen" @toggleSidebar="toggleSidebar" />
+    <Header :isOpen="sidebarOpen" @toggleSidebar="toggleSidebar"/>
     <div class="flex">
-      <Sidebar :value="sidebarOpen" @input="sidebarOpen = $event" />
+      <Sidebar :value="sidebarOpen" @toggleSidebar="toggleSidebar" />
       <div class="flex-grow">
         <div class="main-content pt-4 pl-4">
           <nuxt />
@@ -22,6 +22,7 @@
 <script>
 import Header from '~/components/Header.vue'
 import Sidebar from '~/components/Sidebar.vue'
+
 
 export default {
   middleware: 'auth',
@@ -49,9 +50,14 @@ export default {
 }
 </script>
 
-<style scoped>
-/* @import '~vuetify/dist/vuetify.min.css'; */
+<!-- <style scoped>
+.loading-container {
+  /* Add your loading container styles */
+}
 
- 
+.loading-indicator {
+  /* Add your loading indicator styles */
+}
 
-</style>
+/* Add your other styles */
+</style> -->
