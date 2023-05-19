@@ -4,25 +4,32 @@
     <div v-if="isLoading" class="loading-indicator">
       Loading...
     </div>
-    <v-card v-else class="data-table">
-      <v-card-text>
-        <v-row>
-          <v-col v-for="movie in displayedMovies" :key="movie.id" cols="6">
-            <h2 class="text-xl font-bold">{{ movie.title }}</h2>
-            <v-btn dark color="primary" :to="`/movies/${movie.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">
-              Details
-            </v-btn>
-            <v-btn dark color="primary" @click="toggleWishlist(movie)" class="ml-4 px-4 py-2 rounded"
-              :class="{ 'bg-red-500': isInWishlist(movie), 'bg-blue-500': !isInWishlist(movie) }" :disabled="isLoading">
-              {{ isInWishlist(movie) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
-    <CustomPagination :totalPages="totalPages" :currentPage="defaultPagination" @pageChange="changePage" />
+    <v-data-table
+      v-else
+      :headers="headers"
+      :items="displayedMovies"
+      :items-per-page="5"
+      class="elevation-1"
+    >
+      <template v-slot:item.title="{ item }">
+        <h2 class="text-xl font-bold">{{ item.title }}</h2>
+        <v-btn dark color="primary" :to="`/movies/${item.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">
+          Details
+        </v-btn>
+        <v-btn dark color="primary" @click="toggleWishlist(item)" class="ml-4 px-4 py-2 rounded"
+          :class="{ 'bg-red-500': isInWishlist(item), 'bg-blue-500': !isInWishlist(item) }" :disabled="isLoading">
+          {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+        </v-btn>
+      </template>
+    </v-data-table>
+    <CustomPagination 
+      :totalPages="totalPages" 
+      :currentPage="defaultPagination" 
+      @pageChange="changePage" 
+    />
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -38,7 +45,7 @@ export default {
       movies: undefined,
       isLoading: true,
       defaultPagination: 1,
-      moviesPerPage: 6,
+      moviesPerPage: 5,
     };
   },
   computed: {

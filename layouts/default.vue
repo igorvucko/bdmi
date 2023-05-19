@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <div>
     <div v-if="isLoading"
       class="loading-container flex justify-center items-center fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
@@ -17,6 +18,7 @@
       </div>
     </div>
   </div>
+</v-app>
 </template>
 
 <script>
