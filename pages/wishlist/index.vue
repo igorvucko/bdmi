@@ -1,41 +1,42 @@
+
 <template>
   <div>
-    <h1>Wishlist</h1>
-    <div v-if="wishlist.length === 0">No movies in the wishlist</div>
-    <MovieCard v-for="movie in wishlist" :key="movie.id" :movieData="movie" @removedFromWishlist="loadWishlist" />
+    <h1 class="text-4xl font-bold text-center pb-4">Wishlist</h1>
+    <v-data-table :headers="headers" :items="wishlist" class="elevation-1">
+      <template v-slot:item="props">
+        <tr>
+          <td>
+            <MovieCard :movieData="props.item" @removedFromWishlist="fetchWishlist"/>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import MovieCard from '~/components/MovieCard.vue';
+import MovieCard from '@/components/MovieCard.vue';
 
 export default {
   components: {
     MovieCard
   },
-  data() {
-    return {
-      wishlist: []
-    };
-  },
   computed: {
-    ...mapState('wishlist',['wishlistCount']),
-  },
-  mounted() {
-    this.loadWishlist();
+    ...mapState('wishlist', ['wishlist']),
+    headers() {
+      return [
+        { text: 'Movie', value: 'title', sortable: false }
+      ];
+    },
   },
   methods: {
-    loadWishlist() {
-      if (process.client) {
-        const wishlist = JSON.parse(localStorage.getItem('wishlist'));
-        this.wishlist = wishlist ? wishlist : [];
-              console.log("load wishlist");
-              console.log(this.wishlistCount)
-              
-        this.$store.dispatch('updateWishlistCount');
-      }
-    },
+    fetchWishlist() {
+      // fetch wishlist movies from the store
+    }
+  },
+  created() {
+    this.fetchWishlist();
   }
 };
 </script>
