@@ -10,19 +10,19 @@
         <MovieCard :movieData="item" @removedFromWishlist="fetchWishlist"/>
       </template>
     </v-data-table>
-    <CustomPagination :totalPages="totalPages" :currentPage="defaultPagination" @pageChange="changePage" />
+    <custom-button dark color="primary" @click="fetchWishlist">Refresh Wishlist</custom-button>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import MovieCard from '@/components/MovieCard.vue';
-import CustomPagination from '@/components/CustomPagination.vue';
+import CustomButton from '@/components/CustomButton.vue';
 
 export default {
   components: {
     MovieCard,
-    CustomPagination
+    CustomButton
   },
   data() {
     return {

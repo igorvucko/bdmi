@@ -12,7 +12,7 @@
     <div class="flex">
       <Sidebar :value="sidebarOpen" @toggleSidebar="toggleSidebar" />
       <div class="flex-grow">
-        <div class="main-content pt-4 pl-4">
+        <div class="main-content pl-20 pr-20">
           <nuxt />
         </div>
       </div>
@@ -50,16 +50,12 @@ export default {
     }
   }
 }
-</script>
+</script> 
 
-<!-- <style scoped>
-.loading-container {
-  /* Add your loading container styles */
+<style scoped>
+.main-content {
+    padding-left: 20%; /* 20% of the window width */
+    padding-right: 20%; /* 20% of the window width */
 }
 
-.loading-indicator {
-  /* Add your loading indicator styles */
-}
-
-/* Add your other styles */
-</style> -->
+</style>

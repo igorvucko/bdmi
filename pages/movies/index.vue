@@ -8,66 +8,53 @@
       v-else
       :headers="headers"
       :items="displayedMovies"
-      :items-per-page="5"
+      :items-per-page="moviesPerPage"
+      :server-items-length="totalItems"
+      :page.sync="currentPage"
       class="elevation-1"
     >
       <template v-slot:item.title="{ item }">
         <h2 class="text-xl font-bold">{{ item.title }}</h2>
-        <v-btn dark color="primary" :to="`/movies/${item.id}`" class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">
-          Details
-        </v-btn>
-        <v-btn dark color="primary" @click="toggleWishlist(item)" class="ml-4 px-4 py-2 rounded"
+        <router-link :to="{ name: 'movies-id', params: { id: item.id } }">
+          <CustomButton class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">
+            Details
+          </CustomButton>
+        </router-link>
+        <CustomButton @click="toggleWishlist(item)" class="ml-4 px-4 py-2 rounded"
           :class="{ 'bg-red-500': isInWishlist(item), 'bg-blue-500': !isInWishlist(item) }" :disabled="isLoading">
           {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-        </v-btn>
+        </CustomButton>
       </template>
     </v-data-table>
-    <CustomPagination 
-      :totalPages="totalPages" 
-      :currentPage="defaultPagination" 
-      @pageChange="changePage" 
-    />
   </div>
 </template>
 
-
 <script>
+import CustomButton from '@/components/CustomButton.vue';
 import axios from 'axios';
 import { mapGetters, mapActions } from 'vuex';
-import CustomPagination from '@/components/CustomPagination.vue';
 
 export default {
-  components: {
-    CustomPagination,
-  },
   data() {
     return {
       movies: undefined,
       isLoading: true,
-      defaultPagination: 1,
-      moviesPerPage: 5,
+      currentPage: 1,
+      moviesPerPage: 10,
     };
+  },
+  components: {
+    CustomButton,
   },
   computed: {
     ...mapGetters('wishlist', ['isInWishlist']),
     displayedMovies() {
-      const start = (this.defaultPagination - 1) * this.moviesPerPage;
+      const start = (this.currentPage - 1) * this.moviesPerPage;
       const end = start + this.moviesPerPage;
-      const sortedMovies = this.movies ? this.movies.slice(start, end) : [];
-
-      // Sort movies by title in ascending order
-      sortedMovies.sort((a, b) => {
-        const titleA = a.title.toLowerCase();
-        const titleB = b.title.toLowerCase();
-        if (titleA < titleB) return -1;
-        if (titleA > titleB) return 1;
-        return 0;
-      });
-
-      return sortedMovies;
+      return this.movies.slice(start, end);
     },
-    totalPages() {
-      return this.movies ? Math.ceil(this.movies.length / this.moviesPerPage) : 0;
+    totalItems() {
+      return this.movies ? this.movies.length : 0;
     },
     headers() {
       return [
@@ -87,9 +74,6 @@ export default {
       } else {
         this.addToWishlist(movie);
       }
-    },
-    changePage(pageNumber) {
-      this.defaultPagination = pageNumber;
     },
     async fetchMovies() {
       try {

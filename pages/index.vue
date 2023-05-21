@@ -13,20 +13,23 @@
         placeholder="Enter your password" />
     </div>
     <div class="mb-6">
-      <button type="submit"
-        class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200">Log
-        In</button>
+      <CustomButton type="submit">Log In</CustomButton>
     </div>
   </form>
 </template>
 
 <script>
+import CustomButton from '@/components/CustomButton.vue';
+
 export default {
+  components: {
+    CustomButton,
+  },
   layout: 'auth',
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
     };
   },
   methods: {
@@ -39,7 +42,9 @@ export default {
         this.$store.commit('setUser', this.username);
         this.$router.push('/movies');
       }
-    }
-  }
+    },
+  },
 };
 </script>
+
+

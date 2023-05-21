@@ -1,26 +1,30 @@
 <template>
   <header class="bg-blue-500 text-white py-4 px-6 flex justify-between items-center text-lg">
-    <div class="flex items-center">
-      <v-btn dark color="primary" @click="toggleSidebar" class="mr-4 pr-4">
+    <div class="flex justify-start items-center w-1/3">
+      <custom-button :dark="true" :color="'primary'" @click="toggleSidebar">
         {{ isOpen ? 'Close' : 'Open' }}
-      </v-btn>
-      <span class="mr-4">{{ wishlistCount }} movies on wishlist</span>
+      </custom-button>
     </div>
-    <div class="flex-grow flex justify-center">
-      <div v-if="displayUser">
-        Hello, {{ displayUser }}
-      </div>
+    <div class="flex justify-center items-center w-1/3">
+      <span class="mx-auto">{{ wishlistCount }} movies on wishlist</span>
+      <span class="mx-auto">Hello, {{ displayUser }}</span>
     </div>
-    <v-btn dark color="primary" @click="logout" class="pl-4">
-      Logout
-    </v-btn>
+    <div class="flex justify-end items-center w-1/3">
+      <custom-button :dark="true" :color="'primary'" @click="logout" class="pl-4">
+        Logout
+      </custom-button>
+    </div>
   </header>
 </template>
 
 <script>
+import CustomButton from '@/components/CustomButton.vue';
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+    CustomButton,
+  },
   props: {
     isOpen: {
       type: Boolean,
@@ -42,11 +46,10 @@ export default {
       this.$cookies.remove('username');
       this.$store.dispatch('logout')
         .then(() => 
-          this.$router.go({ path: 'login' }))
-        }
+          this.$router.go({ path: 'login' }));
     },
-  }
-
+  },
+}
 </script>
 
 <style>

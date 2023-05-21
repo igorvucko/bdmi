@@ -4,19 +4,24 @@
       <h2 class="text-xl font-bold">{{ movieData.title }}</h2>
       <p class="text-gray-500">{{ movieData.description }}</p>
     </div>
-    <v-btn dark color="primary" :to="`/movies/${movieData.id}`"
-      class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">Details</v-btn>
-    <v-btn dark color="primary" @click="toggleWishlist" class="ml-4"
+    <custom-button :dark="true" :color="'primary'" :to="`/movies/${movieData.id}`" class="ml-4">
+      Details
+    </custom-button>
+    <custom-button :dark="true" :color="'primary'" @click="toggleWishlist" class="ml-4"
       :disabled="isLoading">
       {{ isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-    </v-btn>
+    </custom-button>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import CustomButton from '@/components/CustomButton.vue';
 
 export default {
+  components: {
+    CustomButton,
+  },
   props: {
     movieData: {
       type: Object,
