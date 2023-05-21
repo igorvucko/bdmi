@@ -4,28 +4,35 @@
     <div v-if="isLoading" class="loading-indicator">
       Loading...
     </div>
-    <v-data-table
+    <DataTable
       v-else
       :headers="headers"
       :items="displayedMovies"
       :items-per-page="moviesPerPage"
-      :server-items-length="totalItems"
-      :page.sync="currentPage"
-      class="elevation-1"
+      :total-items="totalItems"
+      :current-page.sync="currentPage"
     >
-      <template v-slot:item.title="{ item }">
-        <h2 class="text-xl font-bold">{{ item.title }}</h2>
-        <router-link :to="{ name: 'movies-id', params: { id: item.id } }">
-          <CustomButton class="ml-4 px-4 py-2 rounded bg-blue-500 text-white">
-            Details
-          </CustomButton>
-        </router-link>
-        <CustomButton @click="toggleWishlist(item)" class="ml-4 px-4 py-2 rounded"
-          :class="{ 'bg-red-500': isInWishlist(item), 'bg-blue-500': !isInWishlist(item) }" :disabled="isLoading">
-          {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-        </CustomButton>
+      <template v-slot:item="{ item }">
+        <div class="item-row">
+          <h2 class="item-title">{{ item.title }}</h2>
+          <div class="item-buttons">
+            <router-link :to="{ name: 'movies-id', params: { id: item.id } }">
+              <CustomButton class="item-button details-button">
+                Details
+              </CustomButton>
+            </router-link>
+            <CustomButton
+              @click="toggleWishlist(item)"
+              class="item-button wishlist-button"
+              :class="{ 'in-wishlist': isInWishlist(item) }"
+              :disabled="isLoading"
+            >
+              {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+            </CustomButton>
+          </div>
+        </div>
       </template>
-    </v-data-table>
+    </DataTable>
   </div>
 </template>
 
@@ -33,6 +40,7 @@
 import CustomButton from '@/components/CustomButton.vue';
 import axios from 'axios';
 import { mapGetters, mapActions } from 'vuex';
+import DataTable from '@/components/DataTable.vue';
 
 export default {
   data() {
@@ -45,6 +53,7 @@ export default {
   },
   components: {
     CustomButton,
+    DataTable,
   },
   computed: {
     ...mapGetters('wishlist', ['isInWishlist']),
@@ -93,46 +102,6 @@ export default {
 </script>
 
 <style>
-.data-table {
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.ml-4 {
-  margin-left: 1rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.bg-blue-500 {
-  background-color: #2196F3;
-}
-
-.text-white {
-  color: #ffffff;
-}
-
-.bg-red-500 {
-  background-color: #FF5252;
-}
-
 .loading-indicator {
   text-align: center;
   margin-top: 16px;

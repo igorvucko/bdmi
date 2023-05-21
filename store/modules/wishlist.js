@@ -45,6 +45,13 @@ export default {
   },
 
   actions: {
+    toggleWishlist({ commit, getters }, movie) {
+      if (getters.isInWishlist(movie)) {
+        commit('removeFromWishlist', movie);
+      } else {
+        commit('addToWishlist', movie);
+      }
+    },
     init({ commit }) {
       if (process.client) {
         const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
