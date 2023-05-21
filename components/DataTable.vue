@@ -6,6 +6,11 @@
       :server-items-length="totalItems"
       :page.sync="currentPage"
       class="elevation-1 data-table"
+      :footer-props="{
+        'items-per-page-options': [5, 10, 20],
+        'show-current-page': true,
+        'show-first-last-page': true
+      }"
     >
       <template v-slot:item="{ item }">
         <slot name="item" :item="item"></slot>

@@ -4,7 +4,7 @@
     <div v-if="isLoading" class="loading-indicator">
       Loading...
     </div>
-    <DataTable
+    <data-table
       v-else
       :headers="headers"
       :items="displayedMovies"
@@ -17,32 +17,36 @@
           <h2 class="item-title">{{ item.title }}</h2>
           <div class="item-buttons">
             <router-link :to="{ name: 'movies-id', params: { id: item.id } }">
-              <CustomButton class="item-button details-button">
+              <custom-button class="item-button details-button">
                 Details
-              </CustomButton>
+              </custom-button>
             </router-link>
-            <CustomButton
+            <custom-button
               @click="toggleWishlist(item)"
               class="item-button wishlist-button"
               :class="{ 'in-wishlist': isInWishlist(item) }"
               :disabled="isLoading"
             >
               {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-            </CustomButton>
+            </custom-button>
           </div>
         </div>
       </template>
-    </DataTable>
+    </data-table>
   </div>
 </template>
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
+import DataTable from '@/components/DataTable.vue';
 import axios from 'axios';
 import { mapGetters, mapActions } from 'vuex';
-import DataTable from '@/components/DataTable.vue';
 
 export default {
+  components: {
+    CustomButton,
+    DataTable,
+  },
   data() {
     return {
       movies: undefined,
@@ -51,17 +55,8 @@ export default {
       moviesPerPage: 10,
     };
   },
-  components: {
-    CustomButton,
-    DataTable,
-  },
   computed: {
     ...mapGetters('wishlist', ['isInWishlist']),
-    displayedMovies() {
-      const start = (this.currentPage - 1) * this.moviesPerPage;
-      const end = start + this.moviesPerPage;
-      return this.movies.slice(start, end);
-    },
     totalItems() {
       return this.movies ? this.movies.length : 0;
     },
@@ -70,6 +65,11 @@ export default {
         { text: 'Title', value: 'title' },
         { text: 'Actions', value: '', sortable: false },
       ];
+    },
+    displayedMovies() {
+      const start = (this.currentPage - 1) * this.moviesPerPage;
+      const end = start + this.moviesPerPage;
+      return this.movies ? this.movies.slice(start, end) : [];
     },
   },
   created() {
@@ -105,5 +105,42 @@ export default {
 .loading-indicator {
   text-align: center;
   margin-top: 16px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.item-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.item-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.item-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.details-button {
+  background-color: #2196F3;
+  color: #ffffff;
+}
+
+.wishlist-button {
+  background-color: #FF5252;
+  color: #ffffff;
+}
+
+.in-wishlist {
+  background-color: #FF5252 !important;
 }
 </style>
