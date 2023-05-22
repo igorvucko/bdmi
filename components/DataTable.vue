@@ -1,21 +1,27 @@
 <template>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :items-per-page="itemsPerPage"
-      :server-items-length="totalItems"
-      :page.sync="currentPage"
-      class="elevation-1 data-table"
-      :footer-props="{
-        'items-per-page-options': [5, 10, 20],
-        'show-current-page': true,
-        'show-first-last-page': true
-      }"
-    >
-      <template v-slot:item="{ item }">
-        <slot name="item" :item="item"></slot>
-      </template>
-    </v-data-table>
+    <div>
+      <v-data-table
+        :headers="headers"
+        :items="pagedItems"
+        :items-per-page.sync="itemsPerPage"
+        :server-items-length="totalItems"
+        :page.sync="currentPage"
+        class="elevation-1 data-table"
+      >
+        <template v-slot:item="{ item }">
+          <slot name="item" :item="item"></slot>
+        </template>
+      </v-data-table>
+      <v-pagination
+        v-if="totalPages > 1"
+        v-model="currentPage"
+        :length="totalPages"
+        :total-visible="5"
+        color="primary"
+        class="pagination"
+        @input="updatePage"
+      ></v-pagination>
+    </div>
   </template>
   
   <script>
@@ -31,15 +37,37 @@
       },
       itemsPerPage: {
         type: Number,
-        default: 10,
+        default: 5,
       },
-      totalItems: {
-        type: Number,
-        default: 0,
+    },
+    computed: {
+      totalPages() {
+        return Math.ceil(this.items.length / this.itemsPerPage);
       },
-      currentPage: {
-        type: Number,
-        default: 1,
+      pagedItems() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        const end = start + this.itemsPerPage;
+        return this.items.slice(start, end);
+      },
+      totalItems() {
+        return this.items.length;
+      },
+    },
+    data() {
+      return {
+        currentPage: 1,
+      };
+    },
+    watch: {
+      itemsPerPage(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.currentPage = 1;
+        }
+      },
+    },
+    methods: {
+      updatePage(page) {
+        this.currentPage = page;
       },
     },
   };
@@ -49,6 +77,12 @@
   .data-table {
     margin: 0 auto;
     max-width: 1200px;
+  }
+  
+  .pagination {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
   }
   
   .item-row {
