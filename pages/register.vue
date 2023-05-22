@@ -22,42 +22,51 @@
                 <CustomButton type="submit">Register</CustomButton>
             </div>
         </form>
-        <ValidationDialog v-if="showValidationDialog" title="Invalid Password Length"
-            message="Password should be at least 8 characters long." @close="handleValidationDialogClose">
-        </ValidationDialog>
+        <v-dialog v-model="showInvalidPasswordDialog" max-width="400">
+            <v-card>
+                <v-card-title class="headline">Invalid Password</v-card-title>
+                <v-card-text>
+                    Password should be at least 8 characters long.
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" @click="closeInvalidPasswordDialog">OK</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
-import ValidationDialog from '../components/ValidationDialog.vue';
+import axios from 'axios';
 
 export default {
     components: {
         CustomButton,
-        ValidationDialog,
     },
     data() {
         return {
             username: '',
             password: '',
             confirmPassword: '',
-            showValidationDialog: false,
+            showInvalidPasswordDialog: false,
         };
     },
     methods: {
         submitForm() {
-            // Simple validation for password and confirmation
             if (this.password.length >= 8 && this.password === this.confirmPassword) {
                 this.$cookies.set('username', this.username);
                 this.$store.commit('setUser', this.username);
-                this.$router.push('/movies');
+                this.$router.push('/login');
+            } else if (this.password.length < 8) {
+                this.showInvalidPasswordDialog = true;
             } else {
-                this.showValidationDialog = true;
+                // Handle the case when passwords do not match
+                // Display an error message or perform any other necessary action
             }
         },
-        handleValidationDialogClose() {
-            this.showValidationDialog = false;
+        closeInvalidPasswordDialog() {
+            this.showInvalidPasswordDialog = false;
         },
     },
 };

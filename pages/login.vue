@@ -17,26 +17,33 @@
                 <CustomButton type="submit">Log In</CustomButton>
             </div>
         </form>
-        <ValidationDialog v-if="showValidationDialog" title="Invalid Password Length"
-            message="Password should be at least 8 characters long." @close="handleValidationDialogClose">
-        </ValidationDialog>
+        <v-dialog v-model="showInvalidPasswordDialog" max-width="400">
+            <v-card>
+                <v-card-title class="headline">Invalid Password</v-card-title>
+                <v-card-text>
+                    Password should be at least 8 characters long.
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" @click="closeInvalidPasswordDialog">OK</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
-import ValidationDialog from '@/components/ValidationDialog.vue';
+import axios from 'axios';
 
 export default {
     components: {
         CustomButton,
-        ValidationDialog,
     },
     data() {
         return {
             username: '',
             password: '',
-            showValidationDialog: false,
+            showInvalidPasswordDialog: false,
         };
     },
     methods: {
@@ -46,13 +53,38 @@ export default {
             if (this.username === savedUsername && this.password.length >= 8) {
                 this.$store.commit('setUser', this.username);
                 this.$router.push('/movies');
+            } else if (this.password.length < 8) {
+                this.showInvalidPasswordDialog = true;
             } else {
-                this.showValidationDialog = true;
+                // Handle the case when credentials are invalid
+                // Display an error message or perform any other necessary action
             }
         },
-        handleValidationDialogClose() {
-            this.showValidationDialog = false;
+        closeInvalidPasswordDialog() {
+            this.showInvalidPasswordDialog = false;
         },
+        handleDialogKeydown(event) {
+            if (event.keyCode === 13) {
+                // Enter key pressed
+                this.closeInvalidPasswordDialog();
+            }
+        },
+    },
+    beforeDestroy() {
+        // Remove keydown event listener when the component is about to be destroyed
+        const dialogContent = this.$refs.invalidPasswordDialog?.$refs.content;
+        if (dialogContent) {
+            dialogContent.removeEventListener('keydown', this.handleDialogKeydown);
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            // Attach keydown event listener to the dialog's content
+            const dialogContent = this.$refs.invalidPasswordDialog?.$refs.content;
+            if (dialogContent) {
+                dialogContent.addEventListener('keydown', this.handleDialogKeydown);
+            }
+        });
     },
 };
 </script>

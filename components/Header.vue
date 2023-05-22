@@ -46,7 +46,7 @@
 import { mapState } from 'vuex';
 import CustomButton from '@/components/CustomButton.vue';
 import Sidebar from '@/components/Sidebar.vue';
-import axios from 'axios';
+
 
 export default {
   components: {
