@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .sidebar {
   transform: translateX(0);
-  width: 10%; /* Make the sidebar 10% wider */
+  width: 15%; /* Make the sidebar 10% wider */
   height: calc(100% - 4rem); /* Decrease the height of sidebar to exclude header */
   top: 4.7rem; /* Set the top position of sidebar below the header */
   left: 0;

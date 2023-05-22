@@ -41,7 +41,7 @@ export default {
     return {
       isLoading: true,
       currentPage: 1,
-      moviesPerPage: 10,
+      moviesPerPage: 6,
     };
   },
   computed: {
