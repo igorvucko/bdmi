@@ -16,24 +16,25 @@
     </div>
     <div class="flex justify-end items-center w-1/4">
       <!-- Logout button on the right side -->
-      <custom-button :dark="true" :color="'primary'" @click="logout" class="pl-4">
+      <custom-button :dark="true" :color="'primary'" @click="showLogoutDialog" class="pl-4">
         Logout
       </custom-button>
     </div>
+
+    <!-- Logout Confirmation Dialog -->
+    <logout-confirmation-dialog ref="logoutConfirmation"></logout-confirmation-dialog>
   </header>
 </template>
 
-
-
-
-
 <script>
 import CustomButton from '@/components/CustomButton.vue';
+import LogoutConfirmationDialog from '@/components/LogoutConfirmationDialog.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     CustomButton,
+    LogoutConfirmationDialog,
   },
   props: {
     isOpen: {
@@ -52,14 +53,11 @@ export default {
     toggleSidebar() {
       this.$emit('toggleSidebar');
     },
-    logout() {
-      this.$cookies.remove('username');
-      this.$store.dispatch('logout')
-        .then(() => 
-          this.$router.go({ path: 'login' }));
+    showLogoutDialog() {
+      this.$refs.logoutConfirmation.showLogoutDialog();
     },
   },
-}
+};
 </script>
 
 <style>
