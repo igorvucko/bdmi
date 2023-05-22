@@ -30,7 +30,7 @@
         </div>
       </template>
     </DataTable>
-    <custom-button dark color="primary" @click="fetchWishlist">Refresh Wishlist</custom-button>
+    
   </div>
 </template>
 

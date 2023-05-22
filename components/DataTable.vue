@@ -9,7 +9,20 @@
         class="elevation-1 data-table"
       >
         <template v-slot:item="{ item }">
-          <slot name="item" :item="item"></slot>
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.description }}</td>
+            <td>
+              <ul>
+                <li v-for="genre in item.genres" :key="genre.id">{{ genre.name }}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li v-for="video in item.videos" :key="video.id">{{ video.name }}</li>
+              </ul>
+            </td>
+          </tr>
         </template>
       </v-data-table>
       <v-pagination
@@ -36,7 +49,7 @@
       },
       itemsPerPage: {
         type: Number,
-        default: 10,
+        default: 20,
       },
     },
     computed: {
