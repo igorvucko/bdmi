@@ -13,7 +13,7 @@
       </div>
       <div class="flex justify-center items-center w-1/4">
         <!-- User in the center -->
-        <span class="mx-auto">{{ displayUser }}</span>
+        <span class="mx-auto font-bold text-3xl">Hello, {{ displayUser }}</span>
       </div>
       <div class="flex justify-end items-center w-1/4">
         <!-- Logout button on the right side -->
@@ -67,14 +67,17 @@ export default {
       return this.$store.state.user;
     },
   },
-  created() {
+ created() {
     // Check if the user is logged in
     const username = this.$cookies.get('username');
     if (username) {
       this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false; // Set isLoggedIn to false when the user is not logged in
     }
     // Other created logic
   },
+
   methods: {
     toggleSidebar() {
       this.isOpen = !this.isOpen;

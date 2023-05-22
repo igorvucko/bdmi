@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="data-table-container">
     <v-data-table :headers="headers" :items="pagedItems" :items-per-page.sync="localItemsPerPage"
       :server-items-length="totalItems" :page.sync="currentPage" class="elevation-1 data-table">
       <template v-slot:item="{ item }">
@@ -50,5 +50,8 @@ export default {
 </script>
 
 <style scoped>
-/* ... styles ... */
+.data-table-container > .v-data-table-container__wrapper > table {
+    border-spacing: 1 2rem;
+}
+
 </style>
