@@ -13,6 +13,11 @@
         placeholder="Enter your password" />
     </div>
     <div class="mb-6">
+      <label for="confirm-password" class="block font-bold mb-2">Confirm Password:</label>
+      <input type="password" id="confirm-password" v-model="confirmPassword"
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Confirm your password" />
+    </div>
+    <div class="mb-6">
       <CustomButton type="submit">Log In</CustomButton>
     </div>
   </form>
@@ -30,21 +35,21 @@ export default {
     return {
       username: '',
       password: '',
+      confirmPassword: '',
     };
   },
   methods: {
-    addToWishlist(movie) {
-      this.$store.dispatch('wishlist/addToWishlist', movie);
-    },
     submitForm() {
-      if (this.username && this.password) {
+      // Simple validation for password and confirmation
+      if (this.password.length >= 8 && this.password === this.confirmPassword) {
         this.$cookies.set('username', this.username);
         this.$store.commit('setUser', this.username);
         this.$router.push('/movies');
+      } else {
+        // Display an error message for invalid password
+        alert('Password is not valid');
       }
     },
   },
 };
 </script>
-
-
