@@ -41,7 +41,8 @@ export default {
     return {
       isLoading: true,
       currentPage: 1,
-      moviesPerPage: 6,
+      moviesPerPage: 20,
+      movies: [], // Added movies data property
     };
   },
   computed: {
@@ -78,6 +79,8 @@ export default {
         const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
           params: {
             api_key: process.env.API_KEY,
+            page: 1,
+            per_page:5, // Fetch 4 times the number of moviesPerPage
           },
         });
         this.movies = response.data.results;

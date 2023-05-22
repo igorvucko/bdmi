@@ -43,58 +43,12 @@ export default {
   data() {
     return {
       currentPage: 1,
-      localItemsPerPage: this.itemsPerPage,
+      localItemsPerPage: 5, // Set the desired number of movies per page to 5
     };
   },
 };
 </script>
 
 <style scoped>
-.data-table {
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.pagination {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-.item-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.item-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.item-buttons {
-  display: flex;
-  align-items: center;
-}
-
-.item-button {
-  margin-left: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-}
-
-.details-button {
-  background-color: #2196F3;
-  color: #ffffff;
-}
-
-.wishlist-button {
-  background-color: #FF5252;
-  color: #ffffff;
-}
-
-.in-wishlist {
-  background-color: #FF5252 !important;
-}
+/* ... styles ... */
 </style>
