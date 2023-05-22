@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import wishlist from './modules/wishlist'
+import movies from './modules/movies'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ export const actions = {
 const store = () => {
   return new Vuex.Store({
     modules: {
-      wishlist
+      wishlist,
+      movies,
     },
     state,
     mutations,

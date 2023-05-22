@@ -8,7 +8,7 @@
       v-else
       :headers="headers"
       :items="displayedMovies"
-      :items-per-page="moviesPerPage"
+      :items-per-page.sync="moviesPerPage"
       :total-items="totalItems"
       :current-page.sync="currentPage"
     >
@@ -49,7 +49,6 @@ export default {
   },
   data() {
     return {
-      movies: undefined,
       isLoading: true,
       currentPage: 1,
       moviesPerPage: 10,
@@ -57,8 +56,10 @@ export default {
   },
   computed: {
     ...mapGetters('wishlist', ['isInWishlist']),
-    totalItems() {
-      return this.movies ? this.movies.length : 0;
+    displayedMovies() {
+      const start = (this.currentPage - 1) * this.moviesPerPage;
+      const end = start + this.moviesPerPage;
+      return this.movies ? this.movies.slice(start, end) : [];
     },
     headers() {
       return [
@@ -66,10 +67,8 @@ export default {
         { text: 'Actions', value: '', sortable: false },
       ];
     },
-    displayedMovies() {
-      const start = (this.currentPage - 1) * this.moviesPerPage;
-      const end = start + this.moviesPerPage;
-      return this.movies ? this.movies.slice(start, end) : [];
+    totalItems() {
+      return this.movies ? this.movies.length : 0;
     },
   },
   created() {
@@ -98,7 +97,7 @@ export default {
       }
     },
   },
-}
+};
 </script>
 
 <style>

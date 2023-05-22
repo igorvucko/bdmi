@@ -3,7 +3,7 @@
       <v-data-table
         :headers="headers"
         :items="pagedItems"
-        :items-per-page.sync="itemsPerPage"
+        :items-per-page.sync="localItemsPerPage"
         :server-items-length="totalItems"
         :page.sync="currentPage"
         class="elevation-1 data-table"
@@ -19,7 +19,6 @@
         :total-visible="5"
         color="primary"
         class="pagination"
-        @input="updatePage"
       ></v-pagination>
     </div>
   </template>
@@ -37,16 +36,16 @@
       },
       itemsPerPage: {
         type: Number,
-        default: 5,
+        default: 10,
       },
     },
     computed: {
       totalPages() {
-        return Math.ceil(this.items.length / this.itemsPerPage);
+        return Math.ceil(this.items.length / this.localItemsPerPage);
       },
       pagedItems() {
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        const end = start + this.itemsPerPage;
+        const start = (this.currentPage - 1) * this.localItemsPerPage;
+        const end = start + this.localItemsPerPage;
         return this.items.slice(start, end);
       },
       totalItems() {
@@ -56,19 +55,8 @@
     data() {
       return {
         currentPage: 1,
+        localItemsPerPage: this.itemsPerPage,
       };
-    },
-    watch: {
-      itemsPerPage(newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.currentPage = 1;
-        }
-      },
-    },
-    methods: {
-      updatePage(page) {
-        this.currentPage = page;
-      },
     },
   };
   </script>
