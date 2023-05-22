@@ -36,11 +36,15 @@ export default {
 <style scoped>
 .sidebar {
   transform: translateX(0);
-  width: 15%; /* Make the sidebar 10% wider */
-  height: calc(100% - 4rem); /* Decrease the height of sidebar to exclude header */
-  top: 4.7rem; /* Set the top position of sidebar below the header */
+  width: 15%;
+  /* Make the sidebar 10% wider */
+  height: calc(100% - 4rem);
+  /* Decrease the height of sidebar to exclude header */
+  top: 4.7rem;
+  /* Set the top position of sidebar below the header */
   left: 0;
-  padding-left: 2rem; /* Add a slight padding from the left */
+  padding-left: 2rem;
+  /* Add a slight padding from the left */
   z-index: 2;
 }
 
@@ -65,5 +69,4 @@ export default {
 
 .sidebar .custom-button:not(:last-child) {
   margin-bottom: 0.5rem;
-}
-</style>
+}</style>
