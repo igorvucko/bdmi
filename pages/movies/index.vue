@@ -4,14 +4,8 @@
     <div v-if="isLoading" class="loading-indicator">
       Loading...
     </div>
-    <data-table
-      v-else
-      :headers="headers"
-      :items="displayedMovies"
-      :items-per-page.sync="moviesPerPage"
-      :total-items="totalItems"
-      :current-page.sync="currentPage"
-    >
+    <data-table v-else :headers="headers" :items="displayedMovies" :items-per-page.sync="moviesPerPage"
+      :total-items="totalItems" :current-page.sync="currentPage">
       <template v-slot:item="{ item }">
         <div class="item-row">
           <h2 class="item-title">{{ item.title }}</h2>
@@ -21,12 +15,8 @@
                 Details
               </custom-button>
             </router-link>
-            <custom-button
-              @click="toggleWishlist(item)"
-              class="item-button wishlist-button"
-              :class="{ 'in-wishlist': isInWishlist(item) }"
-              :disabled="isLoading"
-            >
+            <custom-button @click="toggleWishlist(item)" class="item-button wishlist-button"
+              :class="{ 'in-wishlist': isInWishlist(item) }" :disabled="isLoading">
               {{ isInWishlist(item) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
             </custom-button>
           </div>
