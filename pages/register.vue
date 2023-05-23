@@ -22,7 +22,7 @@
                 <CustomButton type="submit">Register</CustomButton>
             </div>
         </form>
-        <v-dialog v-model="showInvalidPasswordDialog" max-width="400">
+        <v-dialog v-model="showInvalidPasswordDialog" max-width="400" persistent>
             <v-card>
                 <v-card-title class="headline">Invalid Password</v-card-title>
                 <v-card-text>
@@ -38,13 +38,13 @@
 
 <script>
 import CustomButton from '@/components/CustomButton.vue';
-import axios from 'axios';
+
 
 export default {
-    layout: 'auth',
     components: {
         CustomButton,
     },
+    layout: 'auth', 
     data() {
         return {
             username: '',
@@ -58,7 +58,7 @@ export default {
             if (this.password.length >= 8 && this.password === this.confirmPassword) {
                 this.$cookies.set('username', this.username);
                 this.$store.commit('setUser', this.username);
-                this.$router.push('/login');
+                this.$router.push('/movies');
             } else if (this.password.length < 8) {
                 this.showInvalidPasswordDialog = true;
             } else {
