@@ -36,6 +36,7 @@ import CustomButton from '@/components/CustomButton.vue';
 import axios from 'axios';
 
 export default {
+    layout: 'auth',
     components: {
         CustomButton,
     },

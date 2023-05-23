@@ -15,8 +15,9 @@
 export default {
   props: {
     headers: {
+       
       type: Array,
-      required: true,
+      required: false,
     },
     items: {
       type: Array,
@@ -51,7 +52,8 @@ export default {
 
 <style scoped>
 .data-table-container > .v-data-table-container__wrapper > table {
-    border-spacing: 1 2rem;
+    border-spacing: 5 5rem;
+     
 }
 
 </style>

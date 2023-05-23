@@ -36,9 +36,10 @@
     background-color: #2196F3;
     color: #ffffff;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 7px 15px;
+    border-radius: 3px;
     cursor: pointer;
+    transform: scale(0.8);
   }
   
   .custom-button--dark {
